@@ -10,6 +10,8 @@ const sharingContainer=document.querySelector(".sharing-container")
 const fileURLInput=document.querySelector("#fileURL");
 const copyBtn=document.querySelector("#copyBtn");
 const emailForm=document.querySelector("#emailForm")
+const emailInput=document.querySelector(".email")
+const toast=document.querySelector(".toast")
 
 const host="https://sharedil.onrender.com"
 const uploadURL=`${host}/api/file`
@@ -60,6 +62,7 @@ fileInput.addEventListener("change",()=>{
 copyBtn.addEventListener("click",()=>{
     fileURLInput.select();
     document.execCommand("copy")
+    showToast("Link copied")
 })
 // uploading file //
 
@@ -82,6 +85,11 @@ const uploadFile=()=>{
     // upload progress
 
     xhr.upload.onprogress=updateProgress;
+    xhr.upload.onerror=()=>{
+        fileInput.value="";
+        showToast( `Error in upload:${xhr.statusText}`);
+
+    }
 
     xhr.open("POST",uploadURL);
     xhr.send(formData)
@@ -98,6 +106,8 @@ const updateProgress=(e)=>{
 }
 const showLink=({file:url})=>{
     console.log(url)
+    emailForm[2].removeAttribute("disabled")
+    
     progressContainer.style.display="none"
     fileURLInput.value=url;
     sharingContainer.style.display="block"
@@ -112,7 +122,7 @@ emailForm.addEventListener("submit",(e)=>{
         uuid:url.split("/").splice(-1,1)[0],
         emailTo:emailForm.elements["to-email"].value,
         emailFrom:emailForm.elements["from-email"].value  
-    }
+    } 
     console.table(formData)
 
     fetch(emailURL,{
@@ -122,10 +132,29 @@ emailForm.addEventListener("submit",(e)=>{
         },
         body:JSON.stringify(formData)
     }).then((res) => res.json())
-    .then((data) => console.log(data))
+    .then(({success})=>{
+        if(success){
+            emailInput.value=""
+            showToast("Email Sent")
+            // sharingContainer.style.display="none"
+            // emailForm[2].setAttribute("disabled","true")
+        }
+    } )
+    
+
 
 })
-
+let toastTimer;
+const showToast=(mess)=> {
+    toast.innerHTML=mess;
+    toast.style.transform="translate(-50%,25%)"
+    clearTimeout(toastTimer)
+     toastTimer=setTimeout(() => {
+        toast.style.transform="translate(-50%,135%)"
+    }, 1500);
+    
+    
+}
 
 // fetch(emailURL,{
 //     method:"POST",    
