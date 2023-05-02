@@ -5,6 +5,7 @@
     
     
 }
+
 body,html{
     font-family: system-ui;
     background: var(--main-bg-color);
@@ -15,6 +16,7 @@ body,html{
     overflow: hidden;
     
 }
+
 
 /* centre me karne k liye */
 body,.drop-zone,.upload-container{
@@ -235,5 +237,77 @@ p{
     padding: 0.2px 5px;
     font-size: 18px;
     color: #fff;
+    box-shadow: 2px 2px 5px rgb(153, 137, 234);
+    
+
     transition:transform ease-in-out 0.2s ;
+}
+.upload-vector{
+    background: url(./vector-background.png) no-repeat center;
+    background-size:contain ;
+    width: 50vw;
+    height: 50vh;
+}
+body{
+    flex-direction: row;
+}
+
+/* Responsive  */
+
+@media screen and (max-width:900px) {
+    :root{
+        --container-width: 70vw;
+        /* height: 90vh; */
+    }
+    
+    body{
+        margin: 2%;
+    }
+    
+    
+    .upload-container .title{
+        font-size: 80%;
+    }
+    .upload-vector{
+        display: none;
+    }
+
+     .email-container .field{
+        flex-direction: column;
+        width: 90%;
+    }
+    .email-container input {
+        font-size: 95%;
+        margin: 0;
+        
+    }
+    .email-container label {
+        font-size: 95%;
+        margin: 0;
+    }
+    .progress-bar{
+        width: 60vw;
+    }
+    /* body{
+        display: flex;
+        flex-direction: column;
+    } */
+    /* .upload-container{
+        
+        flex-direction: column;
+        justify-content: space-around;
+        align-items: center;
+    } */
+    /* .email-container .field{
+        margin: 2px;
+        
+    } */
+    .email-container form{
+        
+        padding: 2px;
+    }
+
+     
+    
+
 }

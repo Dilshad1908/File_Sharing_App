@@ -12,6 +12,7 @@ const copyBtn=document.querySelector("#copyBtn");
 const emailForm=document.querySelector("#emailForm")
 const emailInput=document.querySelector(".email")
 const toast=document.querySelector(".toast")
+const maxAllowedSize=1024*1024*100 ; //100mb
 
 const host="https://sharedil.onrender.com"
 const uploadURL=`${host}/api/file`
@@ -69,7 +70,20 @@ copyBtn.addEventListener("click",()=>{
 
 const uploadFile=()=>{
     progressContainer.style.display= "block";
+    if(fileInput.files.length>1){
+        resetFileInput()
+        emptyLink()
+        showToast("Please upload only one file!!!")
+        return;
+    }
     const file = fileInput.files[0];
+    
+    if(file.size>maxAllowedSize){
+        showToast("Can't upload more than 100MB")
+        resetFileInput()
+        emptyLink()
+        return
+    }
     const formData=new FormData()
     formData.append("myfile",file)
 
@@ -86,7 +100,8 @@ const uploadFile=()=>{
 
     xhr.upload.onprogress=updateProgress;
     xhr.upload.onerror=()=>{
-        fileInput.value="";
+        resetFileInput()
+        emptyLink()
         showToast( `Error in upload:${xhr.statusText}`);
 
     }
@@ -112,6 +127,12 @@ const showLink=({file:url})=>{
     fileURLInput.value=url;
     sharingContainer.style.display="block"
     
+}
+const emptyLink=()=>{
+    fileURLInput.value="";
+}
+const resetFileInput=()=>{
+    fileInput.value="";
 }
 
 emailForm.addEventListener("submit",(e)=>{
@@ -146,6 +167,7 @@ emailForm.addEventListener("submit",(e)=>{
 })
 let toastTimer;
 const showToast=(mess)=> {
+    
     toast.innerHTML=mess;
     toast.style.transform="translate(-50%,25%)"
     clearTimeout(toastTimer)
