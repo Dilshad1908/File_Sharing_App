@@ -1,0 +1,225 @@
+:root{
+    --main-bg-color:rgb(63, 245, 175);
+    --border-color:rgb(245, 63, 145);
+    --container-width:500px
+    
+    
+}
+body,html{
+    font-family: system-ui;
+    background: var(--main-bg-color);
+    box-sizing: border-box;
+    height: 100%;
+    padding: 0%;
+    margin: 0%;
+    
+}
+
+/* centre me karne k liye */
+body,.drop-zone,.upload-container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.upload-container{
+    background:#fff;
+    border-radius: 30px;
+    box-shadow: 0px 10px 15px rgba(34, 32, 32, 0.641)  ;
+
+}
+.drop-zone{
+    width: var(--container-width);
+    min-height: 200px;
+    border: 2px dashed var(--border-color);
+    margin: 30px;
+    border-radius: 15px;
+    transition: all 0.2s ease;
+}
+.dragged.drop-zone{
+    background: var(--main-bg-color);
+    border-color:rgb(236, 46, 131) ;
+}
+.icon-container{
+    /* border: 1px solid red; */
+    width: 80px;
+    height: 80px;
+    position: relative;
+    margin: 20px;
+
+
+}
+.icon-container img{
+    width: 100px;
+    position: absolute;
+    transition:transform 200ms ease-in-out ;
+}
+
+.icon-container .right{
+    scale: 0;
+}
+.icon-container .left{
+    scale: 0;
+}
+
+.icon-container .center{
+    transform: translateY(21px) translateX(-2px);
+}
+
+.dragged .icon-container .right{
+    transform: rotate(20deg) translateX(15px) scale(0.9);
+    transform-origin: bottom;
+    filter:contrast(3);
+    scale: 1;
+
+}
+
+.dragged .icon-container .left{
+    transform: rotate(-20deg) translateX(-15px) scale(0.9);
+    transform-origin: bottom;
+    filter:contrast(3);
+    scale: 1;
+}
+
+.dragged .icon-container .center{
+scale: 0;
+}
+
+#fileinput{
+    display: none;
+}
+.browseBtn{
+    color: rgb(231, 8, 205);
+    cursor: pointer;
+}
+
+/* progress container  */
+.progress-container{
+    width: var(--container-width);
+    height: 80px;
+    border: 2px solid var(--main-bg-color);
+    margin-bottom: 25px;
+    border-radius: 15px;
+    position: relative;
+    display: none;
+
+}
+.progress-container .bg-progress{
+    background: var(--main-bg-color);
+    width: 0%;
+    height: 100%;
+    border-radius: 5%;
+    /* transform: scaleX(0.01); */
+    transform-origin: left;
+    transition: width 0.25s linear;
+    position: absolute;
+
+}
+
+.progress-container .inner-container{
+    position: absolute;
+    margin: 10px 15px;
+    width: 470px;
+    /* width: calc(100%-30px); */
+}
+.percent-container{
+    font-size: 13px;
+    margin: 5px;
+}
+
+.progress-bar{
+    height: 3px;
+    width: 100%;
+    background-color: rgb(171, 59, 160);
+    border-radius: 10px;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.25s linear;
+
+
+}
+
+.sharing-container{
+    width: var(--container-width);
+    margin-bottom: 20px;
+    display: none;
+}
+
+p{
+    text-align: center;
+    opacity: 0.9;
+}
+
+.sharing-container .input-container{
+    position: relative;
+}
+.sharing-container .input-container input{
+    width: 100%;
+    border: 2px dashed var(--border-color);
+    border-radius: 5px;
+    padding:10px 8px ;
+    box-sizing: border-box;
+    font-size: 14px;
+    color: var(--border-color);
+    background-color: rgba(113, 240, 196, 0.364);
+    
+
+}
+
+.sharing-container .input-container img{
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    right: 4px;
+    top: 10px;
+    cursor: pointer;
+}
+
+.email-container{
+    display: flex;
+    align-items: center;
+    
+    
+}
+.email-container form{
+    width: 100%;
+    border: 2px solid var(--border-color);
+    border-radius: 10px;
+    padding: 15px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+.email-container .field{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 5px;
+    width: 400px;
+}
+.email-container label{
+    font-size: 18px;
+}
+.email-container input{
+    font-size: 18px;
+    border: none;
+    border-bottom: 2px solid var(--border-color);
+    text-align: center;
+    
+}
+
+.email-container input:focus{
+    outline: none;
+}
+.email-container button{
+    font-size: 18px;
+    padding:8px 20px ;
+    margin-top: 25px;
+    border-radius: 10px;
+    border:none;
+    background: var(--border-color);
+    color: rgb(114, 244, 244);
+    cursor: pointer;
+    
+}
+
